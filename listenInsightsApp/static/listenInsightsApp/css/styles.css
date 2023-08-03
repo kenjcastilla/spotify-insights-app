@@ -1,0 +1,39 @@
+body {
+	font-family: sans-serif;
+	align-items: center;
+}
+td {
+	text-align: center;
+}
+
+table {
+    width: 70%;
+}
+div.table-flex {
+    margin-left: 15%;
+	width: 70%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+div.averages-container {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    text-align: center;
+}
+div.average {
+
+}
+p.average-description {
+    text-align: center;
+
+}
+p.average-answer {
+    text-align: center;
+    font: bold;
+}
+
+a {
+    text-decoration: none;
+}

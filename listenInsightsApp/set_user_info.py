@@ -4,6 +4,7 @@ from os import getenv
 from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOAuth
 from spotipy import Spotify
 from pprint import pprint
+from statistics import mean, mode
 
 load_dotenv()
 CLIENT_ID = getenv('SPOTIFY_CLIENT_ID')
@@ -38,14 +39,17 @@ def get_top_tracks():
         results = spotify.current_user_top_tracks(limit=20, time_range=time_range)
         for track in results['items']:
             track_name = track['name']
-            track_artists = []
+            track_artists = [[], []]
             for i in range(0, len(track['artists'])):
-                track_artists.append([track['artists'][i]['name'], track['artists'][i]['id']])
-            album = track['album']['name']
+                track_artists[0].append(track['artists'][i]['name'])
+                track_artists[1].append(track['artists'][i]['external_urls']['spotify'])
+            album_title = track['album']['name']
+            album_url = track['album']['external_urls']['spotify']
             release_year = track['album']['release_date'][:4]
             track_id = track['id']
             track_uri = track['uri']
-            tracks_by_range[time_range].append([track_name, track_artists, album, release_year, track_id, track_uri])
+            track_url = track['external_urls']['spotify']
+            tracks_by_range[time_range].append([track_name, track_artists, album_title, album_url, release_year, track_id, track_uri, track_url])
 
     pprint(tracks_by_range)
     return tracks_by_range
@@ -83,12 +87,18 @@ def get_top_artists():
             artist_genres = artist['genres']
             artist_popularity = artist['popularity']
             artist_id = artist['id']
+            artist_url = artist['external_urls']['spotify']
 
-            artists_by_range[time_range].append([artist_name, artist_genres, artist_popularity, artist_id])
+            artists_by_range[time_range].append([artist_name, artist_genres, artist_popularity, artist_id, artist_url])
 
     pprint(artists_by_range)
     return artists_by_range
 
 
-tracks = get_top_tracks()
-artists = get_top_artists()
+def get_tracks_stats(release_years):
+    mode_release_year_idx, min_release_year_idx, max_release_year_idx = 0, 0, 0
+
+
+
+def get_artists_stats(popularity_scores):
+    pass
