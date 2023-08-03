@@ -31,7 +31,7 @@
                     {{ track_idx|add:1 }}
                 </td>
                 <td>
-                    <a href="{{ track_urls|get_indexable_item:track_idx }}">
+                    <a href="{{ track_urls|get_indexable_item:track_idx }}" target="_blank">
                         {{ track_names|get_indexable_item:track_idx }}
                     </a>
                 </td>
@@ -42,7 +42,7 @@
                     {% for artist_idx in current_track_artists_len|get_range %}
                         {% with the_url=current_track_artist_urls|get_indexable_item:artist_idx %}
                         {% with artist_name=current_track_artists|get_indexable_item:artist_idx %}
-                        <a href="{{ current_track_artist_urls|get_indexable_item:artist_idx }}">
+                        <a href="{{ current_track_artist_urls|get_indexable_item:artist_idx }}" target="_blank">
                             {{ artist_name }}</a>{% if not forloop.last %}, {% endif %}
                         {% endwith %}
                         {% endwith %}
@@ -52,7 +52,7 @@
                     {% endwith %}
                 </td>
                 <td>
-                    <a href="{{ track_album_urls|get_indexable_item:track_idx }}">
+                    <a href="{{ track_album_urls|get_indexable_item:track_idx }}" target="_blank">
                         {{ track_album_titles|get_indexable_item:track_idx }}
                     </a>
                 </td>
@@ -65,6 +65,14 @@
             {% endwith %}
         </table>
         <div class="averages-container">
+            <div class="average">
+                <p class="average_description"> Oldest Track:</p>
+                <p class="average_answer"><strong>"{{ track_names|get_indexable_item:oldest_track_idx }}" from <i>{{ track_album_titles|get_indexable_item:oldest_track_idx }}</i>: ({{ album_release_years|get_indexable_item:oldest_track_idx }})</strong></p>
+            </div>
+            <div class="average">
+                <p class="average_description"> Newest Track:</p>
+                <p class="average_answer"><strong>"{{ track_names|get_indexable_item:newest_track_idx }}" from <i>{{ track_album_titles|get_indexable_item:newest_track_idx }}</i>: ({{ album_release_years|get_indexable_item:newest_track_idx }})</strong></p>
+            </div>
             <div class="average">
                 <p class="average_description"> Most Frequent Album Release Year:</p>
                 <p class="average_answer"><strong>{{ mode_album_release_year }}</strong></p>
@@ -90,7 +98,7 @@
                     {{ artist_idx|add:1 }}
                     </td>
                     <td>
-                        <a href="{{ artist_urls|get_indexable_item:artist_idx }}">
+                        <a href="{{ artist_urls|get_indexable_item:artist_idx }}" target="_blank">
                             {{ artist_names|get_indexable_item:artist_idx }}
                         </a>
                     </td>
@@ -110,8 +118,16 @@
         </table>
         <div class="averages-container">
             <div class="average">
+                <p class="average-description">Least Popular Artist:</p>
+                <p class="average-answer"><strong>{{ artist_names|get_indexable_item:min_pop_score_idx }} - ({{ artist_popularity_scores|get_indexable_item:min_pop_score_idx }})</strong></p>
+            </div>
+            <div class="average">
+                <p class="average-description">Most Popular Artist:</p>
+                <p class="average-answer"><strong>{{ artist_names|get_indexable_item:max_pop_score_idx }} - ({{ artist_popularity_scores|get_indexable_item:max_pop_score_idx }})</strong></p>
+            </div>
+            <div class="average">
                 <p class="average-description">Average Artist Popularity Score:</p>
-                <p class="average-answer"><strong>{{ avg_popularity_score }}</strong></p>
+                <p class="average-answer"><strong>{{ mean_pop_score }}</strong></p>
             </div>
 
         </div>

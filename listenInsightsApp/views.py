@@ -39,9 +39,8 @@ def top_short_term_view(request):
     artist_genres = [artist[1] for artist in top_artists_short_term]
     artist_popularity_scores = [artist[2] for artist in top_artists_short_term]
 
-    mode_album_release_year, oldest_song_idx, newest_song_idx = get_tracks_stats(album_release_years)
-    avg_popularity_score, min_popularity_score_idx, max_popularity_score_idx = get_artists_stats(artist_popularity_scores)
-
+    mode_album_release_year, oldest_track_idx, newest_track_idx = get_tracks_stats(album_release_years)
+    mean_pop_score, min_pop_score_idx, max_pop_score_idx = get_artists_stats(artist_popularity_scores)
 
     context = {
         "track_names": track_names,
@@ -56,11 +55,11 @@ def top_short_term_view(request):
         "artist_genres": artist_genres,
         "artist_popularity_scores": artist_popularity_scores,
         "mode_album_release_year": mode_album_release_year,
-        "oldest_song_idx": oldest_song_idx,
-        "newest_song_idx": newest_song_idx,
-        "avg_popularity_score": avg_popularity_score,
-        "min_popularity_score_idx": min_popularity_score_idx,
-        "max_populatiry_score_idx": max_popularity_score_idx,
+        "oldest_track_idx": oldest_track_idx,
+        "newest_track_idx": newest_track_idx,
+        "mean_pop_score": mean_pop_score,
+        "min_pop_score_idx": min_pop_score_idx,
+        "max_pop_score_idx": max_pop_score_idx,
     }
 
     return render(request, template, context)

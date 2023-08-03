@@ -2,6 +2,7 @@ body {
 	font-family: sans-serif;
 	align-items: center;
 }
+
 td {
 	text-align: center;
 }
@@ -10,6 +11,7 @@ table {
     width: 70%;
 }
 div.table-flex {
+    margin-top: 2em;
     margin-left: 15%;
 	width: 70%;
 	display: flex;
