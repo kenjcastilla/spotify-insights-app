@@ -1,12 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
+{% load insights_extras %}
 <head>
-    <meta charset="UTF-8">
     <title>Top Items -- Long Term</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'listenInsightsApp/css/styles.css' %}">
+    <style>
+        tr { color: #13443c; }
+        tr:nth-child(even) { background-color: #bcd6d2; }
+        tr:hover { background-color: #cd656a; color: black; }
+        .data a:link { color: #13443c; }
+        .data a:visited { color: #13443c; }
+        div.fact { border: solid green; }
+    </style>
 </head>
 <body>
+<div>
     <h1>Top Items -- Long Term</h1>
-    <ul><li>{{ name for name in track_names }}</li></ul>
-    <ul><li>{{ name for name in artist_names</li></ul>
+
+    <!--TOP TRACKS SECTION-->
+    <div class="table-and-facts-container">
+        <div class="table-container">
+            <h2 class="section-header">Tracks</h2>
+            <table class="data">
+                <tr>
+                    <th>Position</th>
+                    <th>Track</th>
+                    <th>Artist(s)</th>
+                    <th>Album</th>
+                    <th>Release Year</th>
+                </tr>
+                {% with tracks_list_len=track_names|length %}
+                {% for track_idx in tracks_list_len|get_range %}
+                {% with current_track_artists=track_artist_names|get_indexable_item:track_idx %}
+                {% with current_track_artists_len=current_track_artists|length %}
+                {% with current_track_artist_urls=track_artist_urls|get_indexable_item:track_idx %}
+                <tr>
+                    <td>
+                        {{ track_idx|add:1 }}
+                    </td>
+                    <td>
+                        <a class="table-link" href="{{ track_urls|get_indexable_item:track_idx }}" target="_blank">
+                            {{ track_names|get_indexable_item:track_idx }}
+                        </a>
+                    </td>
+                    <td>
+                        {% with current_track_artists=track_artist_names|get_indexable_item:track_idx %}
+                        {% with current_track_artists_len=current_track_artists|length %}
+                        {% with current_track_artist_urls=track_artist_urls|get_indexable_item:track_idx %}
+                        {% for artist_idx in current_track_artists_len|get_range %}
+                            {% with the_url=current_track_artist_urls|get_indexable_item:artist_idx %}
+                            {% with artist_name=current_track_artists|get_indexable_item:artist_idx %}
+                            <a class="table-link" href="{{ current_track_artist_urls|get_indexable_item:artist_idx }}" target="_blank">
+                                {{ artist_name }}</a>{% if not forloop.last %}, {% endif %}
+                            {% endwith %}
+                            {% endwith %}
+                        {% endfor %}
+                        {% endwith %}
+                        {% endwith %}
+                        {% endwith %}
+                    </td>
+                    <td>
+                        <a class="table-link" href="{{ track_album_urls|get_indexable_item:track_idx }}" target="_blank">
+                            {{ track_album_titles|get_indexable_item:track_idx }}
+                        </a>
+                    </td>
+                    <td>{{ album_release_years|get_indexable_item:track_idx }}</td>
+                </tr>
+                {% endwith %}
+                {% endwith %}
+                {% endwith %}
+                {% endfor %}
+                {% endwith %}
+            </table>
+        </div>
+        <div class="facts-container">
+            <div class="fact">
+                <p class="fact-text"> Oldest Track:<br>
+                <strong>"{{ track_names|get_indexable_item:oldest_track_idx }}" from <i>{{ track_album_titles|get_indexable_item:oldest_track_idx }}</i>: ({{ album_release_years|get_indexable_item:oldest_track_idx }})</strong></p>
+            </div>
+            <div class="fact">
+                <p class="fact-text"> Newest Track:<br>
+                <strong>"{{ track_names|get_indexable_item:newest_track_idx }}" from <i>{{ track_album_titles|get_indexable_item:newest_track_idx }}</i>: ({{ album_release_years|get_indexable_item:newest_track_idx }})</strong></p>
+            </div>
+            <div class="fact">
+                <p class="fact-text"> Most Frequent Album Release Year:<br>
+                <strong>{{ mode_album_release_year }}</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <!--TOP ARTISTS SECTION-->
+    <div class="table-and-facts-container">
+        <div class="table-container">
+            <h2 class="section-header">Artists</h2>
+            <table class="data">
+                <tr>
+                    <th>Position</th>
+                    <th>Artist</th>
+                    <th>Genres</th>
+                    <th>Popularity</th>
+                </tr>
+                {% with artists_list_len=artist_names|length %}
+                {% for artist_idx in artists_list_len|get_range %}
+                    <tr>
+                        <td>
+                        {{ artist_idx|add:1 }}
+                        </td>
+                        <td>
+                            <a class="table-link" href="{{ artist_urls|get_indexable_item:artist_idx }}" target="_blank">
+                                {{ artist_names|get_indexable_item:artist_idx }}
+                            </a>
+                        </td>
+                        <td>
+                            {% with current_artist_genres=artist_genres|get_indexable_item:artist_idx %}
+                            {% with current_artist_genres_len=current_artist_genres|length %}
+                            {% for genre_idx in current_artist_genres_len|get_range %}
+                                {{ current_artist_genres|get_indexable_item:genre_idx }}{% if not forloop.last %},{% endif %}
+                            {% endfor %}
+                            {% endwith %}
+                            {% endwith %}
+                        </td>
+                        <td>{{ artist_popularity_scores|get_indexable_item:artist_idx }}</td>
+                    </tr>
+                {% endfor %}
+                {% endwith %}
+            </table>
+        </div>
+        <div class="facts-container">
+            <div class="fact">
+                <p class="fact-text">Least Popular Artist:<br>
+                <strong>{{ artist_names|get_indexable_item:min_pop_score_idx }} - ({{ artist_popularity_scores|get_indexable_item:min_pop_score_idx }})</strong></p>
+            </div>
+            <div class="fact">
+                <p class="fact-text">Most Popular Artist:<br>
+                <strong>{{ artist_names|get_indexable_item:max_pop_score_idx }} - ({{ artist_popularity_scores|get_indexable_item:max_pop_score_idx }})</strong></p>
+            </div>
+            <div class="fact">
+                <p class="fact-text">Average Artist Popularity Score:<br>
+                <strong>{{ mean_pop_score }}</strong></p>
+            </div>
+
+        </div>
+    </div>
+</div>
 </body>
 </html>

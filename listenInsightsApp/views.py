@@ -72,23 +72,39 @@ def top_medium_term_view(request):
     top_artists_medium_term = top_artists['medium_term']
 
     track_names = [track[0] for track in top_tracks_medium_term]
-    track_artists = [track[1] for track in top_tracks_medium_term]
-    track_albums = [track[2] for track in top_tracks_medium_term]
-    album_release_years = [track[3] for track in top_tracks_medium_term]
+    track_urls = [track[-1] for track in top_tracks_medium_term]
+    track_artist_names = [track[1][0] for track in top_tracks_medium_term]
+    track_artist_urls = [track[1][1] for track in top_tracks_medium_term]
+    track_album_titles = [track[2] for track in top_tracks_medium_term]
+    track_album_urls = [track[3] for track in top_tracks_medium_term]
+    album_release_years = [track[4] for track in top_tracks_medium_term]
 
     artist_names = [artist[0] for artist in top_artists_medium_term]
+    artist_urls = [artist[-1] for artist in top_artists_medium_term]
     artist_genres = [artist[1] for artist in top_artists_medium_term]
-    artist_popularity = [artist[2] for artist in top_artists_medium_term]
+    artist_popularity_scores = [artist[2] for artist in top_artists_medium_term]
+
+    mode_album_release_year, oldest_track_idx, newest_track_idx = get_tracks_stats(album_release_years)
+    mean_pop_score, min_pop_score_idx, max_pop_score_idx = get_artists_stats(artist_popularity_scores)
 
     context = {
         "track_names": track_names,
-        "track_artists": track_artists,
-        "track_albums": track_albums,
+        "track_urls": track_urls,
+        "track_artist_names": track_artist_names,
+        "track_artist_urls": track_artist_urls,
+        "track_album_titles": track_album_titles,
+        "track_album_urls": track_album_urls,
         "album_release_years": album_release_years,
         "artist_names": artist_names,
+        "artist_urls": artist_urls,
         "artist_genres": artist_genres,
-        "artist_popularity_scores": artist_popularity,
-        "range": [i for i in range(20)]
+        "artist_popularity_scores": artist_popularity_scores,
+        "mode_album_release_year": mode_album_release_year,
+        "oldest_track_idx": oldest_track_idx,
+        "newest_track_idx": newest_track_idx,
+        "mean_pop_score": mean_pop_score,
+        "min_pop_score_idx": min_pop_score_idx,
+        "max_pop_score_idx": max_pop_score_idx,
     }
 
     return render(request, template, context)
@@ -96,27 +112,44 @@ def top_medium_term_view(request):
 
 def top_long_term_view(request):
     template = "listenInsightsApp/long-term.html"
+
     top_tracks_long_term = top_tracks['long_term']
     top_artists_long_term = top_artists['long_term']
 
     track_names = [track[0] for track in top_tracks_long_term]
-    track_artists = [track[1] for track in top_tracks_long_term]
-    track_albums = [track[2] for track in top_tracks_long_term]
-    album_release_years = [track[3] for track in top_tracks_long_term]
+    track_urls = [track[-1] for track in top_tracks_long_term]
+    track_artist_names = [track[1][0] for track in top_tracks_long_term]
+    track_artist_urls = [track[1][1] for track in top_tracks_long_term]
+    track_album_titles = [track[2] for track in top_tracks_long_term]
+    track_album_urls = [track[3] for track in top_tracks_long_term]
+    album_release_years = [track[4] for track in top_tracks_long_term]
 
     artist_names = [artist[0] for artist in top_artists_long_term]
+    artist_urls = [artist[-1] for artist in top_artists_long_term]
     artist_genres = [artist[1] for artist in top_artists_long_term]
-    artist_popularity = [artist[2] for artist in top_artists_long_term]
+    artist_popularity_scores = [artist[2] for artist in top_artists_long_term]
+
+    mode_album_release_year, oldest_track_idx, newest_track_idx = get_tracks_stats(album_release_years)
+    mean_pop_score, min_pop_score_idx, max_pop_score_idx = get_artists_stats(artist_popularity_scores)
 
     context = {
         "track_names": track_names,
-        "track_artists": track_artists,
-        "track_albums": track_albums,
+        "track_urls": track_urls,
+        "track_artist_names": track_artist_names,
+        "track_artist_urls": track_artist_urls,
+        "track_album_titles": track_album_titles,
+        "track_album_urls": track_album_urls,
         "album_release_years": album_release_years,
         "artist_names": artist_names,
+        "artist_urls": artist_urls,
         "artist_genres": artist_genres,
-        "artist_popularity_scores": artist_popularity,
-        "range": [i for i in range(20)]
+        "artist_popularity_scores": artist_popularity_scores,
+        "mode_album_release_year": mode_album_release_year,
+        "oldest_track_idx": oldest_track_idx,
+        "newest_track_idx": newest_track_idx,
+        "mean_pop_score": mean_pop_score,
+        "min_pop_score_idx": min_pop_score_idx,
+        "max_pop_score_idx": max_pop_score_idx,
     }
 
     return render(request, template, context)
