@@ -14,4 +14,7 @@ def get_indexable_item(indexable, idx):
 
 @register.filter
 def get_range(val):
-    return [i for i in range(val)]
+    """
+    Returns tuple of numbers in given range.
+    """
+    return (num for num in range(val))
