@@ -96,6 +96,10 @@ def get_top_artists():
 
 
 def get_tracks_stats(release_years):
+    """
+    Provides information about top tracks.
+    return: mode_release_year_idx, oldest_track_idx, newest_track_idx
+    """
     mode_release_year_idx, oldest_track_idx, newest_track_idx = mode(release_years), 0, 0
     for idx, year in enumerate(release_years):
         if year < release_years[oldest_track_idx]:
@@ -107,6 +111,10 @@ def get_tracks_stats(release_years):
 
 
 def get_artists_stats(popularity_scores):
+    """
+    Provides information about top artists.
+    return: mean_pop_score_idx, min_pop_score_idx, max_pop_score_idx
+    """
     mean_pop_score_idx, min_pop_score_idx, max_pop_score_idx = mean(popularity_scores), -1, -1
     for idx, score in enumerate(popularity_scores):
         if score < popularity_scores[min_pop_score_idx]:

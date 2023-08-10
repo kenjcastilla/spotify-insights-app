@@ -3,19 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <title>Top Items</title>
+    <style>
+        html, body {
+            height: 100%;
+            min-height: 100%;
+            font-family: Tahoma, sans-serif;
+            background-color: #fff3dc;
+        }
+        h1 {
+            margin-top: 15%;
+            text-align: center;
+            background-color: #fae4b8;
+            border: solid #fae4b8 0.5rem;
+            border-radius: 0.6rem;
+        }
+        div.index-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            margin: auto;
+            align-items: center;
+        }
+        a {
+            margin-top: 2rem;
+            font-size: 1.5rem;
+            border: solid #fae4b8 0.5rem;
+            border-radius: 0.6rem;
+            text-decoration: none;
+        }
+        a:link {
+            background-color: #fae4b8;
+            color: black;
+        }
+        a:visited {
+            color: black;
+        }
+        a:hover {
+            background-color: #c9e4ff;
+            color: black;
+            border: solid #c9e4ff 0.5rem;
+            border-radius: 0.6rem;
+        }
+    </style>
 </head>
 <body>
-    <h1>Top Items</h1>
-    <ul>
-        <li>
-            <a href="short-term">Short Term</a>
-        </li>
-        <li>
-            <a href="medium-term">Medium Term</a>
-        </li>
-        <li>
-            <a href="long-term">Long Term</a>
-        </li>
-    </ul>
+<div class="index-container">
+    <h1>- Top Items -</h1>
+    <a href="short-term">Short Term</a>
+    <a href="medium-term">Medium Term</a>
+    <a href="long-term">Long Term</a>
+</div>
 </body>
 </html>
