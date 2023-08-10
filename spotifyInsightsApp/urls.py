@@ -2,7 +2,7 @@ from django.urls import include, path
 
 from . import views
 
-app_name = "listenInsightsApp"
+app_name = "spotifyInsightsApp"
 urlpatterns = [
     path("", views.index_view, name="index"),
     path("short-term/", views.top_short_term_view, name="short-term"),

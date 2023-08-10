@@ -10,7 +10,7 @@ top_artists = get_top_artists()
 
 
 def index_view(request):
-    template = "listenInsightsApp/index.html"
+    template = "spotifyInsightsApp/index.html"
 
     return render(request, template)
 
@@ -20,7 +20,7 @@ class HistoryView(generic.DetailView):
 
 
 def top_short_term_view(request):
-    template = "listenInsightsApp/short-term.html"
+    template = "spotifyInsightsApp/short-term.html"
 
     top_tracks_short_term = top_tracks['short_term']
     top_artists_short_term = top_artists['short_term']
@@ -31,7 +31,7 @@ def top_short_term_view(request):
 
 
 def top_medium_term_view(request):
-    template = "listenInsightsApp/medium-term.html"
+    template = "spotifyInsightsApp/medium-term.html"
 
     top_tracks_medium_term = top_tracks['medium_term']
     top_artists_medium_term = top_artists['medium_term']
@@ -42,7 +42,7 @@ def top_medium_term_view(request):
 
 
 def top_long_term_view(request):
-    template = "listenInsightsApp/long-term.html"
+    template = "spotifyInsightsApp/long-term.html"
 
     top_tracks_long_term = top_tracks['long_term']
     top_artists_long_term = top_artists['long_term']
