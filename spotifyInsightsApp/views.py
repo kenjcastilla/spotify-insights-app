@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.views import generic
 # from firebase_config import database
 from .set_user_info import get_top_tracks, get_top_artists, get_tracks_stats, get_artists_stats
-from statistics import mean, mode
 
 top_tracks = get_top_tracks()
 top_artists = get_top_artists()
@@ -13,6 +12,7 @@ def index_view(request):
     template = "spotifyInsightsApp/index.html"
 
     return render(request, template)
+
 
 class HistoryView(generic.DetailView):
     # song_titles = database.child('Data')
