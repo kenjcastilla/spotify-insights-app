@@ -15,4 +15,4 @@ Then, simply run the server from the root directory:
 
     python manage.py runserver
 
-[Demo]()
+[Demo](https://youtu.be/UuxTPbC4yvY)
