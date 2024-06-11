@@ -15,7 +15,9 @@ Start the development server from the root directory:
 
     python manage.py runserver
 
-Follow the provided link (it should be http://127.0.0.1:8000/, but you can change this), and add "spotifyInsights" to the url.
+Follow the provided link; it should be http://127.0.0.1:8000/
+
+Add "spotifyInsights" to the url.
 It should look like this: http://127.0.0.1:8000/spotifyInsights.
 
 [Demo](https://youtu.be/UuxTPbC4yvY)
