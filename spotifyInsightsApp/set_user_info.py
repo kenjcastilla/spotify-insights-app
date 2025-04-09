@@ -1,6 +1,5 @@
 from dotenv import load_dotenv
 from os import getenv
-# from firebase_config import database
 from spotipy.oauth2 import SpotifyOAuth
 from spotipy import Spotify
 from pprint import pprint

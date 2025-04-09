@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from django.views import generic
-# from firebase_config import database
 from .set_user_info import get_top_tracks, get_top_artists, get_tracks_stats, get_artists_stats
 
 top_tracks = get_top_tracks()
