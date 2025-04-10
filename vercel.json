@@ -1,7 +1,7 @@
 {
   "builds": [
     {
-      "src": "wsgi.py",
+      "src": "spotifyInsights/wsgi.py",
       "use": "@vercel/python",
       "config": {
         "maxLambdaSize": "15mb",
@@ -9,7 +9,7 @@
       }
     },
     {
-      "src": "build_files.sh",
+      "src": "build.sh",
       "use": "@vercel/static-build",
       "config": {
         "distDir": "staticfiles"
@@ -23,7 +23,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "wsgi.py"
+      "dest": "spotifyInsights/wsgi.py"
     }
   ]
 }
