@@ -1,2 +1,3 @@
 spotifyInsightsApp/firebase_config.py
 .env
+.cache

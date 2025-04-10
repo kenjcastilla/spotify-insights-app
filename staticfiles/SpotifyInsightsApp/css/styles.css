@@ -1,0 +1,85 @@
+body {
+	font-family: Tahoma, sans-serif;
+	align-items: center;
+}
+
+a {
+    text-decoration: none;
+}
+
+td {
+	text-align: center;
+}
+
+h2.section-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+div.table-and-facts-container {
+    margin-top: 1rem;
+    margin-bottom: 4rem;
+    margin-left: 15%;
+	width: 70%;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+div.table-container {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    justify-content: center;
+}
+
+.data table {
+    width: 100%;
+
+}
+
+.data th {
+    background-color: white;
+    color: black;
+}
+
+.data tr:hover a {
+    color: black !important;
+}
+
+.data tr a.table-link:hover {
+    color: white !important;
+}
+
+#data-short tr:nth-child(even) {background-color: #e6d2d3;}
+#data-medium tr:nth-child(even) {background-color: #c4c9e6;}
+#data-long tr:nth-child(even) {background-color: #bcd6d2;}
+
+div.facts-container {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    margin-left: 2rem;
+    padding-top: 4rem;
+    justify-content: center;
+}
+
+div.fact {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    border-radius: 1rem;
+}
+
+p.fact-text {
+    text-align: center;
+    line-height: 1.5rem;
+}
+
+p.fact-answer {
+    text-align: center;
+    font: bold;
+}
+
