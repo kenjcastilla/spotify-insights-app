@@ -1,28 +1,58 @@
-from django.shortcuts import render
-from django.views import generic
-from .set_user_info import get_top_tracks, get_top_artists, get_tracks_stats, get_artists_stats
+import time
 
-top_tracks = get_top_tracks()
-top_artists = get_top_artists()
+from django.shortcuts import render, redirect
+from spotipy import DjangoSessionCacheHandler
+from .set_user_info import get_top_tracks, get_top_artists, get_tracks_stats, get_artists_stats
+from .spotify_auth import spotify_login, spotify_callback
+
+
+class UserData:
+    def __init__(self):
+        self.top_tracks: dict = {}
+        self.top_artists: dict = {}
+
+
+user_data = UserData()
+
+
 # Create your views here.
 
 
 def index_view(request):
     template = "spotifyInsightsApp/index.html"
+    cache_handler = DjangoSessionCacheHandler(request)
+    token = cache_handler.get_cached_token()
+    print(f'Token: {token}')
+    print(time.time())
+
+    if not token \
+            or time.time() >= token['expires_at'] \
+            or not user_data.top_tracks \
+            or not user_data.top_artists:
+        spotify_login(request)
+        response, spotify = spotify_callback(request)
+        if not spotify:
+            return redirect("spotifyInsightsApp:auth-error")
+        user_data.top_tracks = get_top_tracks(spotify)
+        user_data.top_artists = get_top_artists(spotify)
 
     return render(request, template)
 
 
-class HistoryView(generic.DetailView):
-    # song_titles = database.child('Data')
-    longtime = 6
+def auth_error_view(request):
+    template = "spotifyInsightsApp/auth-error.html"
+
+    return render(request, template)
 
 
 def top_short_term_view(request):
+    if not user_data.top_tracks or not user_data.top_artists:
+        return redirect("spotifyInsightsApp:index")
+
     template = "spotifyInsightsApp/short-term.html"
 
-    top_tracks_short_term = top_tracks['short_term']
-    top_artists_short_term = top_artists['short_term']
+    top_tracks_short_term = user_data.top_tracks['short_term']
+    top_artists_short_term = user_data.top_artists['short_term']
 
     context = get_context(top_tracks_short_term, top_artists_short_term)
 
@@ -30,10 +60,13 @@ def top_short_term_view(request):
 
 
 def top_medium_term_view(request):
+    if not user_data.top_tracks or not user_data.top_artists:
+        return redirect("spotifyInsightsApp:index")
+
     template = "spotifyInsightsApp/medium-term.html"
 
-    top_tracks_medium_term = top_tracks['medium_term']
-    top_artists_medium_term = top_artists['medium_term']
+    top_tracks_medium_term = user_data.top_tracks['medium_term']
+    top_artists_medium_term = user_data.top_artists['medium_term']
 
     context = get_context(top_tracks_medium_term, top_artists_medium_term)
 
@@ -41,10 +74,13 @@ def top_medium_term_view(request):
 
 
 def top_long_term_view(request):
+    if not user_data.top_tracks or not user_data.top_artists:
+        return redirect("spotifyInsightsApp:index")
+
     template = "spotifyInsightsApp/long-term.html"
 
-    top_tracks_long_term = top_tracks['long_term']
-    top_artists_long_term = top_artists['long_term']
+    top_tracks_long_term = user_data.top_tracks['long_term']
+    top_artists_long_term = user_data.top_artists['long_term']
 
     context = get_context(top_tracks_long_term, top_artists_long_term)
     return render(request, template, context)

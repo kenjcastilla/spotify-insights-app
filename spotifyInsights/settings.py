@@ -16,13 +16,11 @@ from os import getenv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 SECRET_KEY = str(getenv('DJANGO_SECRET_KEY'))
 
 DEBUG = getenv('DJANGO_DEBUG', '') != 'False'
 
 ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app']
-
 
 INSTALLED_APPS = [
     "whitenoise.runserver_nostatic",
@@ -69,7 +67,12 @@ WSGI_APPLICATION = "spotifyInsights.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {}
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": "mydatabase",
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 from os import getenv
 from spotipy.oauth2 import SpotifyOAuth
-from spotipy import Spotify
+from spotipy import Spotify, DjangoSessionCacheHandler
 from pprint import pprint
 from statistics import mean, mode
 
@@ -11,7 +11,7 @@ CLIENT_SECRET = getenv('SPOTIFY_CLIENT_SECRET')
 REDIRECT_URI = getenv('SPOTIPY_REDIRECT_URI')
 
 
-def get_top_tracks():
+def get_top_tracks(spotify):
     """
     Uses spotipy to retrieve current user's top 20 tracks, organized by time range.
     tracks_info = [[track_name, track_artists, album, release_year, track_id, track_uri],...]
@@ -21,15 +21,6 @@ def get_top_tracks():
              'long_term': {tracks_info}
             }
     """
-    scope = 'user-top-read'
-    spotify = Spotify(
-        auth_manager=SpotifyOAuth(
-            client_id=CLIENT_ID,
-            client_secret=CLIENT_SECRET,
-            redirect_uri=REDIRECT_URI,
-            scope=scope
-        )
-    )
 
     time_ranges = ['short_term', 'medium_term', 'long_term']
     tracks_by_range = {time_range: [] for time_range in time_ranges}
@@ -54,7 +45,7 @@ def get_top_tracks():
     return tracks_by_range
 
 
-def get_top_artists():
+def get_top_artists(spotify):
     """
     Uses spotipy to retrieve current user's top 20 artists, organized by time range.
 
@@ -66,15 +57,15 @@ def get_top_artists():
              'long_term': {artists_info}
             }
     """
-    scope = 'user-top-read'
-    spotify = Spotify(
-        auth_manager=SpotifyOAuth(
-            client_id=CLIENT_ID,
-            client_secret=CLIENT_SECRET,
-            redirect_uri=REDIRECT_URI,
-            scope=scope
-        )
-    )
+    # scope = 'user-top-read'
+    # spotify = Spotify(
+    #     auth_manager=SpotifyOAuth(
+    #         client_id=CLIENT_ID,
+    #         client_secret=CLIENT_SECRET,
+    #         redirect_uri=REDIRECT_URI,
+    #         scope=scope
+    #     )
+    # )
 
     time_ranges = ['short_term', 'medium_term', 'long_term']
     artists_by_range = {time_range: [] for time_range in time_ranges}
