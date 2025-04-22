@@ -58,10 +58,16 @@ WSGI_APPLICATION = "spotifyInsights.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+SUPABASE_URL = getenv("SUPABASE_URL")
+SUPABASE_KEY = getenv("NEXT_PUBLIC_SUPABASE_ANON_KEY")
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": "mydatabase",
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': getenv('DB_NAME'),
+        'USER': getenv('SUPABASE_USER'),
+        'PASSWORD': getenv('POSTGRES_PASSWORD'),
+        'HOST': getenv('SUPABASE_HOST'),
+        'PORT': getenv('SUPABASE_PORT'),
     }
 }
 
