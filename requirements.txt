@@ -54,4 +54,3 @@ websockets==14.2
 wheel==0.45.1
 whitenoise==6.9.0
 yarl==1.20.0
-zlib==1.2.13
