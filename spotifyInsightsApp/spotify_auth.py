@@ -31,10 +31,6 @@ def spotify_callback(request):
         redirect_uri=REDIRECT_URI,
         cache_handler=DjangoSessionCacheHandler(request),
     )
-    # print(request.GET)
-    # sp_oauth.parse_response_code(REDIRECT_URI)
-    # code = request.GET.get('code')
-    # print(f'Code: {code}')
 
     handler = DjangoSessionCacheHandler(request)
     token_info = sp_oauth.get_access_token(check_cache=False)

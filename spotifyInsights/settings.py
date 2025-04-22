@@ -1,10 +1,13 @@
 from pathlib import Path
 from os import getenv
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = str(getenv('DJANGO_SECRET_KEY'))
+SECRET_KEY = getenv('DJANGO_SECRET_KEY')
 
 DEBUG = getenv('DJANGO_DEBUG', '') != 'False'
 
@@ -107,3 +110,15 @@ STORAGES = {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": getenv('REDIS_URL'),
+        "OPTIONS": {
+            "client_class": "django_redis.client.DefaultClient",
+        }
+    }
+}
+
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
