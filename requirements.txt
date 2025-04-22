@@ -22,7 +22,6 @@ hyperframe==6.1.0
 idna==3.10
 iniconfig==2.1.0
 multidict==6.4.3
-openldap==2.6.4
 openssl==3.0.16
 packaging==25.0
 pip==25.0.1
