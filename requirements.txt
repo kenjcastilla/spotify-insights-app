@@ -5,12 +5,14 @@ click==8.1.8
 Django==4.2.20
 django-redis==5.4.0
 idna==3.10
+psycopg2==2.9.10
 python-dotenv==0.21.0
 redis==5.2.1
 requests==2.32.3
 setuptools==75.8.0
 spotipy==2.25.1
 sqlparse==0.5.2
+supabase==2.15.0
 urllib3==2.4.0
 wheel==0.45.1
 whitenoise==6.9.0
