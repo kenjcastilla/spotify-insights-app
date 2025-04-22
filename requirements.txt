@@ -6,6 +6,7 @@ Django==4.2.20
 django-redis==5.4.0
 idna==3.10
 psycopg2==2.9.10
+psycopg2-binary==2.9.10
 python-dotenv==0.21.0
 redis==5.2.1
 requests==2.32.3
