@@ -21,7 +21,6 @@ httpx==0.28.1
 hyperframe==6.1.0
 idna==3.10
 iniconfig==2.1.0
-krb5==1.20.1
 libcxx==14.0.6
 libedit==3.1.20230828
 libffi==3.4.4
