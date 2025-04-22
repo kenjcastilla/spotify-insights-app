@@ -11,7 +11,6 @@ click==8.1.8
 deprecation==2.1.0
 Django==4.2.20
 django-redis==5.4.0
-expat==2.6.4
 frozenlist==1.6.0
 gotrue==2.12.0
 h11==0.14.0
