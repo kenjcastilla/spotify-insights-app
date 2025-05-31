@@ -11,7 +11,7 @@ CLIENT_SECRET = getenv('SPOT_CLIENT_SECRET')
 REDIRECT_URI = getenv('SPOTIPY_REDIRECT_URI')
 
 
-def get_top_tracks(spotify):
+def get_top_tracks(spotify, request):
     """
     Uses spotipy to retrieve current user's top 20 tracks, organized by time range.
     tracks_info = [[track_name, track_artists, album, release_year, track_id, track_uri],...]
@@ -22,6 +22,7 @@ def get_top_tracks(spotify):
             }
     """
     print(f'GET_TOP_TRACKS--Spotify object: {spotify}')
+    print(f'GET_SPOTIFY_CLIENT--session info: {request.session.__dict__}\n')
     time_ranges = ['short_term', 'medium_term', 'long_term']
     tracks_by_range = {time_range: [] for time_range in time_ranges}
 

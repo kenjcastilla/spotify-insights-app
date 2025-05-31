@@ -40,7 +40,7 @@ def spotify_callback(request):
     if code_from_session:
         token_info = sp_oauth.get_access_token(code=code_from_session)
         spotify = Spotify(auth=token_info, auth_manager=sp_oauth)
-        user_data.top_tracks = get_top_tracks(spotify)
+        user_data.top_tracks = get_top_tracks(spotify, request)
         user_data.top_artists = get_top_artists(spotify)
 
         return redirect('spotifyInsightsApp:index')
@@ -86,7 +86,7 @@ def index_view(request):
     # response = spotify_callback(request)
     # if not spotify:
     #     return redirect("spotifyInsightsApp:auth-error")
-    user_data.top_tracks = get_top_tracks(spotify)
+    user_data.top_tracks = get_top_tracks(spotify, request)
     user_data.top_artists = get_top_artists(spotify)
 
     return render(request, template)
