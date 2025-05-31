@@ -1,6 +1,7 @@
 from pathlib import Path
 from os import getenv
 from dotenv import load_dotenv
+import dj_database_url
 
 load_dotenv()
 
@@ -61,14 +62,15 @@ WSGI_APPLICATION = "spotifyInsights.wsgi.application"
 SUPABASE_URL = getenv("SUPABASE_URL")
 SUPABASE_KEY = getenv("NEXT_PUBLIC_SUPABASE_ANON_KEY")
 DATABASES = {
-    "default": {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': getenv('DB_NAME'),
-        'USER': getenv('SUPABASE_USER'),
-        'PASSWORD': getenv('POSTGRES_PASSWORD'),
-        'HOST': getenv('SUPABASE_HOST'),
-        'PORT': getenv('SUPABASE_PORT'),
-    }
+    "default": dj_database_url.config(getenv('POSTGRES_URL'))
+    # "default": {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': getenv('DB_NAME'),
+    #     'USER': getenv('SUPABASE_USER'),
+    #     'PASSWORD': getenv('POSTGRES_PASSWORD'),
+    #     'HOST': getenv('SUPABASE_HOST'),
+    #     'PORT': getenv('SUPABASE_PORT'),
+    # }
 }
 
 # Password validation

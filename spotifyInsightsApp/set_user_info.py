@@ -6,8 +6,8 @@ from pprint import pprint
 from statistics import mean, mode
 
 load_dotenv()
-CLIENT_ID = getenv('SPOTIFY_CLIENT_ID')
-CLIENT_SECRET = getenv('SPOTIFY_CLIENT_SECRET')
+CLIENT_ID = getenv('SPOT_CLIENT_ID')
+CLIENT_SECRET = getenv('SPOT_CLIENT_SECRET')
 REDIRECT_URI = getenv('SPOTIPY_REDIRECT_URI')
 
 
@@ -21,7 +21,7 @@ def get_top_tracks(spotify):
              'long_term': {tracks_info}
             }
     """
-
+    print(f'GET_TOP_TRACKS--Spotify object: {spotify}')
     time_ranges = ['short_term', 'medium_term', 'long_term']
     tracks_by_range = {time_range: [] for time_range in time_ranges}
 
