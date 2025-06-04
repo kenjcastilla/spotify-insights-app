@@ -39,9 +39,10 @@ def spotify_callback(request):
     # print(f'SPOTIFY_CALLBACK--Code: {code}\n')
     if code_from_session:
         token_info = sp_oauth.get_access_token(code=code_from_session)
-        spotify = Spotify(auth=token_info, auth_manager=sp_oauth)
-        user_data.top_tracks = get_top_tracks(spotify, request)
-        user_data.top_artists = get_top_artists(spotify)
+        print(f'SPOTIFY_CALLBACK--token_info: {token_info['access_token']}')
+        spotify = Spotify(auth=token_info['access_token'], auth_manager=sp_oauth)
+        user_data.top_tracks = get_top_tracks(request)
+        user_data.top_artists = get_top_artists(request)
 
         return redirect('spotifyInsightsApp:index')
 
@@ -79,15 +80,13 @@ def index_view(request):
         print(f'INDEX--returned from get_spotify_client(): {client_info}')
         if type(client_info) is not str:
             print(f'INDEX--http response info: {client_info.url}')
-            redirect(client_info.url)
+            return redirect(client_info.url)
         else:
             token = client_info
     spotify = Spotify(auth=token)
-    # response = spotify_callback(request)
-    # if not spotify:
-    #     return redirect("spotifyInsightsApp:auth-error")
-    user_data.top_tracks = get_top_tracks(spotify, request)
-    user_data.top_artists = get_top_artists(spotify)
+
+    user_data.top_tracks = get_top_tracks(request)
+    user_data.top_artists = get_top_artists(request)
 
     return render(request, template)
 
