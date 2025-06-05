@@ -43,7 +43,7 @@ def spotify_callback(request):
         spotify = Spotify(auth=token_info['access_token'], auth_manager=sp_oauth)
         user_data.top_tracks = get_top_tracks(request)
         user_data.top_artists = get_top_artists(request)
-
+        print(f'SPOTIFY_CALLBACK--User data set: {user_data.top_tracks}\n{user_data.top_artists}')
         return redirect('spotifyInsightsApp:index')
 
     return HttpResponse("Authentication failed")
