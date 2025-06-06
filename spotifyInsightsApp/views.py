@@ -1,7 +1,6 @@
 import time
 from os import getenv
 from .custom_cache_handler import CustomCacheHandler
-from django.core.cache import cache
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from dotenv import load_dotenv
@@ -35,12 +34,10 @@ def spotify_callback(request):
     print('SPOTIFY_CALLBACK--session info:', request.session.__dict__, '\n')
     code_from_session = request.GET.get('code')
     print('SPOTIFY_CALLBACK--code from session:', code_from_session)
-    # print(f"SPOTIFY_CALLBACK--code in cache: {cache.get('code')}")
-    # print(f'SPOTIFY_CALLBACK--Code: {code}\n')
+
     if code_from_session:
         token_info = sp_oauth.get_access_token(code=code_from_session)
         print(f'SPOTIFY_CALLBACK--token_info: {token_info['access_token']}')
-        spotify = Spotify(auth=token_info['access_token'], auth_manager=sp_oauth)
         user_data.top_tracks = get_top_tracks(request)
         user_data.top_artists = get_top_artists(request)
         print(f'SPOTIFY_CALLBACK--User data set: {user_data.top_tracks}\n{user_data.top_artists}')
@@ -83,7 +80,6 @@ def index_view(request):
             return redirect(client_info.url)
         else:
             token = client_info
-    spotify = Spotify(auth=token)
 
     user_data.top_tracks = get_top_tracks(request)
     user_data.top_artists = get_top_artists(request)

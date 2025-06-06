@@ -1,4 +1,3 @@
-from django.http import HttpResponse
 from django.shortcuts import redirect
 from dotenv import load_dotenv
 from os import getenv
@@ -22,12 +21,13 @@ def get_spotify_client(request):
     print(f'GET_SPOTIFY_CLIENT--session info: {request.session.__dict__}\n')
     token_info = sp_oauth.get_cached_token()
 
-    print(f'GET_SPOTIFY_CLIENT--token_info: {token_info}\n')
     if not token_info:
+        print(f'GET_SPOTIFY_CLIENT--NO TOKEN')
         auth_url = sp_oauth.get_authorize_url()
         print(f'GET_SPOTIFY_CLIENT--redirecting to auth_url: {auth_url}')
         return redirect(auth_url)
 
+    print(f'GET_SPOTIFY_CLIENT--token_info: {token_info}\n')
     access_token = token_info['access_token']
     print(f'GET_SPOTIFY_CLIENT--access token: {access_token}')
 

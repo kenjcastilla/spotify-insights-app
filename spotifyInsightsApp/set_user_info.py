@@ -1,6 +1,5 @@
 from dotenv import load_dotenv
 from os import getenv
-from spotipy.oauth2 import SpotifyOAuth
 from spotipy import Spotify
 from pprint import pprint
 from statistics import mean, mode
@@ -62,15 +61,7 @@ def get_top_artists(request):
              'long_term': {artists_info}
             }
     """
-    # scope = 'user-top-read'
-    # spotify = Spotify(
-    #     auth_manager=SpotifyOAuth(
-    #         client_id=CLIENT_ID,
-    #         client_secret=CLIENT_SECRET,
-    #         redirect_uri=REDIRECT_URI,
-    #         scope=scope
-    #     )
-    # )
+
     cache_handler = CustomCacheHandler(request)
     token = cache_handler.get_cached_token()
     spotify = Spotify(auth=token['access_token'])
